@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - LeetCode Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Problems</a>
+            <a href="contest.html">Contest</a>
+            <a href="agents.html">AI Agents</a>
+            <a href="discuss.html">Discuss</a>
+            <a href="premium.html">Premium</a>
+        </div>
+        <div class="nav-actions">
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="profile-header">
+            <div class="profile-cover"></div>
+            <div class="profile-info">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-details">
+                    <h1 id="profileName">Username</h1>
+                    <p id="profileEmail">user@example.com</p>
+                    <div class="profile-badges">
+                        <span class="badge pro"><i class="fas fa-crown"></i> Pro</span>
+                        <span class="badge streak"><i class="fas fa-fire"></i> 15 Day Streak</span>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" id="editProfileBtn">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon solved">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="solvedCount">0</h3>
+                    <p>Problems Solved</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon submissions">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="submissionsCount">0</h3>
+                    <p>Total Submissions</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon streak">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="streakCount">0</h3>
+                    <p>Day Streak</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon ranking">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="ranking">#12,456</h3>
+                    <p>Global Ranking</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2><i class="fas fa-chart-line"></i> Progress</h2>
+                <div class="progress-bars">
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Easy</span>
+                            <span id="easyProgress">0/50</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill easy" id="easyBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Medium</span>
+                            <span id="mediumProgress">0/100</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill medium" id="mediumBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Hard</span>
+                            <span id="hardProgress">0/50</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill hard" id="hardBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2><i class="fas fa-calendar-check"></i> Recent Activity</h2>
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <div class="activity-icon solved">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>Solved <strong>Two Sum</strong></p>
+                            <span class="time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon attempted">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>Attempted <strong>Median of Two Sorted Arrays</strong></p>
+                            <span class="time">5 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon solved">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>Solved <strong>Palindrome Number</strong></p>
+                            <span class="time">1 day ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2><i class="fas fa-trophy"></i> Achievements</h2>
+                <div class="achievements-grid">
+                    <div class="achievement">
+                        <div class="achievement-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <span>First Solve</span>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <span>7 Day Streak</span>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span>Speed Demon</span>
+                    </div>
+                    <div class="achievement locked">
+                        <div class="achievement-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <span>100 Solves</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

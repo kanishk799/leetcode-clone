@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem - LeetCode Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Problems</a>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn-secondary" id="resetCode">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+            <button class="btn btn-primary" id="runCode">
+                <i class="fas fa-play"></i> Run
+            </button>
+            <button class="btn btn-success" id="submitCode">
+                <i class="fas fa-check"></i> Submit
+            </button>
+        </div>
+    </nav>
+
+    <main class="problem-container">
+        <div class="problem-panel">
+            <div class="problem-header">
+                <h1 id="problemTitle">Problem Title</h1>
+                <span class="difficulty-badge" id="problemDifficulty">Easy</span>
+            </div>
+            <div class="problem-description" id="problemDescription">
+                <p>Loading problem...</p>
+            </div>
+            <div class="examples" id="problemExamples">
+            </div>
+            <div class="constraints" id="problemConstraints">
+            </div>
+        </div>
+
+        <div class="editor-panel">
+            <div class="editor-header">
+                <div class="language-selector">
+                    <select id="languageSelect">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                    </select>
+                </div>
+            </div>
+            <div class="code-editor">
+                <textarea id="codeEditor"></textarea>
+            </div>
+            <div class="output-panel">
+                <div class="output-header">
+                    <span>Output</span>
+                    <button class="btn-icon" id="clearOutput">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="output-content" id="outputContent">
+                    <p class="placeholder">Run your code to see output here</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/problem.js"></script>
+</body>
+</html>

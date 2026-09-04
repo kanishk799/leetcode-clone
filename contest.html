@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest - LeetCode Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Problems</a>
+            <a href="contest.html" class="active">Contest</a>
+            <a href="agents.html">AI Agents</a>
+            <a href="discuss.html">Discuss</a>
+            <a href="premium.html">Premium</a>
+        </div>
+        <div class="nav-actions">
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="contest-header">
+            <h1><i class="fas fa-trophy"></i> Contests</h1>
+            <p>Compete with programmers worldwide</p>
+        </div>
+
+        <div class="contest-tabs">
+            <button class="contest-tab active" data-tab="upcoming">Upcoming</button>
+            <button class="contest-tab" data-tab="past">Past Contests</button>
+            <button class="contest-tab" data-tab="my-contests">My Contests</button>
+        </div>
+
+        <div class="contest-content" id="contestContent">
+            <div class="contest-list" id="upcomingContests">
+                <div class="contest-card">
+                    <div class="contest-status live">
+                        <i class="fas fa-circle"></i> LIVE NOW
+                    </div>
+                    <h3>Weekly Contest 350</h3>
+                    <div class="contest-info">
+                        <span><i class="fas fa-clock"></i> 1:30:00</span>
+                        <span><i class="fas fa-users"></i> 12,456 participants</span>
+                    </div>
+                    <div class="contest-problems">
+                        <span>4 Problems</span>
+                        <span>Rated for 2000+</span>
+                    </div>
+                    <button class="btn btn-danger" onclick="joinContest(350)">
+                        <i class="fas fa-play"></i> Join Now
+                    </button>
+                </div>
+
+                <div class="contest-card">
+                    <div class="contest-status upcoming">
+                        <i class="fas fa-calendar"></i> UPCOMING
+                    </div>
+                    <h3>Biweekly Contest 120</h3>
+                    <div class="contest-info">
+                        <span><i class="fas fa-clock"></i> Starts in 2 days</span>
+                        <span><i class="fas fa-bell"></i> Set Reminder</span>
+                    </div>
+                    <div class="contest-problems">
+                        <span>4 Problems</span>
+                        <span>Rated for 1500+</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="setReminder(120)">
+                        <i class="fas fa-bell"></i> Remind Me
+                    </button>
+                </div>
+
+                <div class="contest-card">
+                    <div class="contest-status upcoming">
+                        <i class="fas fa-calendar"></i> UPCOMING
+                    </div>
+                    <h3>Weekly Contest 351</h3>
+                    <div class="contest-info">
+                        <span><i class="fas fa-clock"></i> Starts in 7 days</span>
+                        <span><i class="fas fa-bell"></i> Set Reminder</span>
+                    </div>
+                    <div class="contest-problems">
+                        <span>4 Problems</span>
+                        <span>Rated for 1800+</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="setReminder(351)">
+                        <i class="fas fa-bell"></i> Remind Me
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard-section">
+            <h2><i class="fas fa-medal"></i> Top Performers</h2>
+            <div class="leaderboard">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>Contests</th>
+                            <th>Problems Solved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank gold">1</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">C</div>
+                                    <span>CodeMaster</span>
+                                </div>
+                            </td>
+                            <td>3245</td>
+                            <td>156</td>
+                            <td>2,847</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank silver">2</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">A</div>
+                                    <span>AlgoKing</span>
+                                </div>
+                            </td>
+                            <td>3180</td>
+                            <td>142</td>
+                            <td>2,654</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank bronze">3</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">D</div>
+                                    <span>DataWizard</span>
+                                </div>
+                            </td>
+                            <td>3120</td>
+                            <td>138</td>
+                            <td>2,543</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">S</div>
+                                    <span>SortingNinja</span>
+                                </div>
+                            </td>
+                            <td>3050</td>
+                            <td>125</td>
+                            <td>2,432</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar">T</div>
+                                    <span>TreeHunter</span>
+                                </div>
+                            </td>
+                            <td>2980</td>
+                            <td>118</td>
+                            <td>2,321</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/contest.js"></script>
+</body>
+</html>

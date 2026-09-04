@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discuss - LeetCode Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Problems</a>
+            <a href="contest.html">Contest</a>
+            <a href="agents.html">AI Agents</a>
+            <a href="discuss.html" class="active">Discuss</a>
+            <a href="premium.html">Premium</a>
+        </div>
+        <div class="nav-actions">
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="discuss-header">
+            <h1><i class="fas fa-comments"></i> Discussion Forum</h1>
+            <button class="btn btn-primary" id="newPostBtn">
+                <i class="fas fa-plus"></i> New Post
+            </button>
+        </div>
+
+        <div class="discuss-filters">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="interview">Interview Experience</option>
+                <option value="solution">Solution Explained</option>
+                <option value="question">Question</option>
+                <option value="announcement">Announcement</option>
+            </select>
+            <select id="sortBy">
+                <option value="recent">Most Recent</option>
+                <option value="popular">Most Popular</option>
+                <option value="unanswered">Unanswered</option>
+            </select>
+        </div>
+
+        <div class="discuss-list" id="discussList">
+            <div class="discuss-card">
+                <div class="discuss-votes">
+                    <button class="vote-btn up"><i class="fas fa-chevron-up"></i></button>
+                    <span class="vote-count">234</span>
+                    <button class="vote-btn down"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="discuss-content">
+                    <div class="discuss-meta">
+                        <span class="category-tag solution">Solution</span>
+                        <span class="time">2 hours ago</span>
+                    </div>
+                    <h3>Two Sum - Optimized HashMap Approach Explained</h3>
+                    <p>Here's a detailed explanation of how to solve Two Sum using a HashMap for O(n) time complexity...</p>
+                    <div class="discuss-footer">
+                        <div class="author">
+                            <div class="avatar">C</div>
+                            <span>CodeMaster</span>
+                        </div>
+                        <div class="discuss-stats">
+                            <span><i class="fas fa-comment"></i> 45</span>
+                            <span><i class="fas fa-eye"></i> 1.2k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discuss-card">
+                <div class="discuss-votes">
+                    <button class="vote-btn up"><i class="fas fa-chevron-up"></i></button>
+                    <span class="vote-count">189</span>
+                    <button class="vote-btn down"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="discuss-content">
+                    <div class="discuss-meta">
+                        <span class="category-tag interview">Interview</span>
+                        <span class="time">5 hours ago</span>
+                    </div>
+                    <h3>My Google Interview Experience - 3 Rounds of DSA</h3>
+                    <p>Just got an offer from Google! Here's my detailed experience with all 3 coding rounds...</p>
+                    <div class="discuss-footer">
+                        <div class="author">
+                            <div class="avatar">A</div>
+                            <span>AlgoKing</span>
+                        </div>
+                        <div class="discuss-stats">
+                            <span><i class="fas fa-comment"></i> 89</span>
+                            <span><i class="fas fa-eye"></i> 3.4k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discuss-card">
+                <div class="discuss-votes">
+                    <button class="vote-btn up"><i class="fas fa-chevron-up"></i></button>
+                    <span class="vote-count">56</span>
+                    <button class="vote-btn down"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="discuss-content">
+                    <div class="discuss-meta">
+                        <span class="category-tag question">Question</span>
+                        <span class="time">1 day ago</span>
+                    </div>
+                    <h3>Why is my DP solution getting TLE?</h3>
+                    <p>I've implemented a bottom-up DP solution but it's still getting Time Limit Exceeded. Can someone help?</p>
+                    <div class="discuss-footer">
+                        <div class="author">
+                            <div class="avatar">D</div>
+                            <span>DataWizard</span>
+                        </div>
+                        <div class="discuss-stats">
+                            <span><i class="fas fa-comment"></i> 23</span>
+                            <span><i class="fas fa-eye"></i> 567</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discuss-card">
+                <div class="discuss-votes">
+                    <button class="vote-btn up"><i class="fas fa-chevron-up"></i></button>
+                    <span class="vote-count">412</span>
+                    <button class="vote-btn down"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="discuss-content">
+                    <div class="discuss-meta">
+                        <span class="category-tag announcement">Announcement</span>
+                        <span class="time">2 days ago</span>
+                    </div>
+                    <h3>New Feature: AI Agents for Problem Hints!</h3>
+                    <p>We're excited to announce our new AI Agents feature that can help you with hints, code review, and debugging...</p>
+                    <div class="discuss-footer">
+                        <div class="author">
+                            <div class="avatar admin">L</div>
+                            <span>LeetCode Clone Team</span>
+                        </div>
+                        <div class="discuss-stats">
+                            <span><i class="fas fa-comment"></i> 156</span>
+                            <span><i class="fas fa-eye"></i> 8.9k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Post Modal -->
+        <div class="modal" id="newPostModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create New Post</h2>
+                    <button class="btn-icon" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="newPostForm">
+                    <div class="form-group">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" placeholder="Enter post title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postCategory">Category</label>
+                        <select id="postCategory" required>
+                            <option value="">Select category</option>
+                            <option value="solution">Solution</option>
+                            <option value="question">Question</option>
+                            <option value="interview">Interview Experience</option>
+                            <option value="announcement">Announcement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Content</label>
+                        <textarea id="postContent" rows="10" placeholder="Write your post content..." required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelPost">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Publish
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/discuss.js"></script>
+</body>
+</html>

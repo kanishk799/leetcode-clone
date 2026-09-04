@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents - LeetCode Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Problems</a>
+            <a href="contest.html">Contest</a>
+            <a href="agents.html" class="active">AI Agents</a>
+            <a href="discuss.html">Discuss</a>
+            <a href="premium.html">Premium</a>
+        </div>
+        <div class="nav-actions">
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="agents-header">
+            <h1><i class="fas fa-robot"></i> AI Coding Agents</h1>
+            <p>Get help from AI assistants while solving problems</p>
+        </div>
+
+        <div class="agents-grid">
+            <div class="agent-card" data-agent="hint">
+                <div class="agent-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Hint Agent</h3>
+                <p>Get progressive hints without spoiling the solution</p>
+                <button class="btn btn-primary" onclick="openAgent('hint')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+
+            <div class="agent-card" data-agent="review">
+                <div class="agent-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Code Review Agent</h3>
+                <p>Get your code reviewed with optimization suggestions</p>
+                <button class="btn btn-primary" onclick="openAgent('review')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+
+            <div class="agent-card" data-agent="explain">
+                <div class="agent-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Explain Agent</h3>
+                <p>Understand any algorithm or concept step by step</p>
+                <button class="btn btn-primary" onclick="openAgent('explain')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+
+            <div class="agent-card" data-agent="debug">
+                <div class="agent-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3>Debug Agent</h3>
+                <p>Find and fix bugs in your code automatically</p>
+                <button class="btn btn-primary" onclick="openAgent('debug')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+
+            <div class="agent-card" data-agent="complexity">
+                <div class="agent-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Complexity Agent</h3>
+                <p>Analyze time and space complexity of your solution</p>
+                <button class="btn btn-primary" onclick="openAgent('complexity')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+
+            <div class="agent-card" data-agent="alternative">
+                <div class="agent-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h3>Alternative Agent</h3>
+                <p>Get alternative approaches to solve the problem</p>
+                <button class="btn btn-primary" onclick="openAgent('alternative')">
+                    <i class="fas fa-play"></i> Start
+                </button>
+            </div>
+        </div>
+
+        <!-- Agent Chat Modal -->
+        <div class="agent-modal" id="agentModal">
+            <div class="agent-chat">
+                <div class="chat-header">
+                    <div class="chat-agent-info">
+                        <div class="agent-avatar" id="chatAgentIcon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 id="chatAgentName">AI Agent</h3>
+                            <span class="status online">Online</span>
+                        </div>
+                    </div>
+                    <button class="btn-icon" id="closeChat">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message agent">
+                        <div class="message-content">
+                            <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <textarea id="chatInput" placeholder="Type your message..." rows="2"></textarea>
+                    <button class="btn btn-primary" id="sendMessage">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/agents.js"></script>
+</body>
+</html>
