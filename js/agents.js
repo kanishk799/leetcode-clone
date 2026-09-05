@@ -1,33 +1,39 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   updateNavbar();
 
   const chatMessages = document.getElementById('chatMessages');
   const chatInput = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendChat');
-  const currentMode = document.getElementById('currentMode');
+  const sendBtn = document.getElementById('sendMessage');
+  const modal = document.getElementById('agentModal');
+  const closeChat = document.getElementById('closeChat');
+  const chatAgentName = document.getElementById('chatAgentName');
   let currentAgent = 'hint';
 
   document.querySelectorAll('.agent-card').forEach(card => {
     card.addEventListener('click', () => {
-      document.querySelectorAll('.agent-card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      currentAgent = card.dataset.mode;
-      currentMode.textContent = card.querySelector('h3').textContent;
+      if (!AuthService.isLoggedIn()) {
+        toast.warning('Please login to use AI Agents');
+        window.location.href = 'login.html';
+        return;
+      }
+      currentAgent = card.dataset.agent;
+      chatAgentName.textContent = card.querySelector('h3').textContent;
+      modal.classList.add('active');
+      chatInput.focus();
     });
   });
 
+  closeChat?.addEventListener('click', () => modal.classList.remove('active'));
+  modal?.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
   sendBtn?.addEventListener('click', sendChat);
-  chatInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } });
+  chatInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+  });
 
   async function sendChat() {
     const message = chatInput.value.trim();
     if (!message) return;
-
-    if (!AuthService.isLoggedIn()) {
-      toast.warning('Please login to use AI Agents');
-      window.location.href = 'login.html';
-      return;
-    }
 
     appendMessage(message, 'user');
     chatInput.value = '';
@@ -51,11 +57,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
-});
 
-function escapeHtml(str) {
-  if (!str) return '';
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+});
