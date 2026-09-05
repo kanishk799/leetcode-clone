@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const problemsList = document.getElementById('problemsList');
   const searchInput = document.getElementById('searchInput');
   const difficultyFilter = document.getElementById('difficultyFilter');
-  const statusFilter = document.getElementById('statusFilter');
   const topicFilter = document.getElementById('topicFilter');
   const sortSelect = document.getElementById('sortSelect');
   const loadingState = document.getElementById('loadingState');
@@ -40,12 +39,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const daily = await ProblemsService.getDaily();
     if (daily && daily.problem) {
       dailyChallenge.style.display = 'flex';
-      document.getElementById('dailyChallengeTitle').textContent = `${daily.problem.id}. ${daily.problem.title}`;
+      document.getElementById('dailyChallengeLink').textContent = `${daily.problem.id}. ${daily.problem.title}`;
       document.getElementById('dailyChallengeLink').href = `problem.html?id=${daily.problem.id}`;
-      if (daily.completed) {
-        document.getElementById('dailyChallengeLink').textContent = 'Solved ✓';
-        document.getElementById('dailyChallengeLink').classList.add('completed');
-      }
     }
   } catch (err) {
     console.error('Failed to load daily challenge:', err);
@@ -89,9 +84,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const difficulty = difficultyFilter.value;
       if (difficulty !== 'all') params.difficulty = difficulty;
-
-      const status = statusFilter.value;
-      if (status !== 'all') params.status = status;
 
       const topic = topicFilter.value;
       if (topic !== 'all') params.topic = topic;
@@ -177,7 +169,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const debouncedSearch = debounce(() => { currentPage = 1; loadProblems(); }, 300);
   searchInput.addEventListener('input', debouncedSearch);
   difficultyFilter.addEventListener('change', () => { currentPage = 1; loadProblems(); });
-  statusFilter.addEventListener('change', () => { currentPage = 1; loadProblems(); });
   topicFilter.addEventListener('change', () => { currentPage = 1; loadProblems(); });
   sortSelect.addEventListener('change', () => { currentPage = 1; loadProblems(); });
 

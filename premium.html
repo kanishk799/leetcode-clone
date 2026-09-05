@@ -1,188 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium - LeetCode Clone</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium - LeetCode</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html"><i class="fas fa-code logo"></i> LeetCode</a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Problems</a>
+      <a href="contest.html">Contest</a>
+      <a href="discuss.html">Discuss</a>
+      <a href="agents.html">AI Agents</a>
+      <a href="premium.html" class="active">Premium</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
+      <div class="user-menu">
+        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+          <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
-        <div class="nav-links">
-            <a href="index.html">Problems</a>
-            <a href="contest.html">Contest</a>
-            <a href="agents.html">AI Agents</a>
-            <a href="discuss.html">Discuss</a>
-            <a href="premium.html" class="active">Premium</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="premium-header">
+      <h1><i class="fas fa-crown"></i> Choose Your Plan</h1>
+      <p>Select a plan that works best for you</p>
+    </div>
+
+    <div class="pricing-toggle">
+      <span class="active" id="monthlyLabel">Monthly</span>
+      <label class="switch">
+        <input type="checkbox" id="pricingToggle">
+        <span class="slider"></span>
+      </label>
+      <span id="yearlyLabel">Yearly <span class="badge">Save 20%</span></span>
+    </div>
+
+    <div class="country-select">
+      <label for="countryFilter"><i class="fas fa-globe"></i> Select Country</label>
+      <select id="countryFilter">
+        <option value="IN" data-currency="INR" data-symbol="₹">India (INR)</option>
+        <option value="US" data-currency="USD" data-symbol="$">United States (USD)</option>
+        <option value="GB" data-currency="GBP" data-symbol="£">United Kingdom (GBP)</option>
+        <option value="EU" data-currency="EUR" data-symbol="€">Europe (EUR)</option>
+        <option value="CA" data-currency="CAD" data-symbol="C$">Canada (CAD)</option>
+        <option value="AU" data-currency="AUD" data-symbol="A$">Australia (AUD)</option>
+        <option value="JP" data-currency="JPY" data-symbol="¥">Japan (JPY)</option>
+        <option value="BR" data-currency="BRL" data-symbol="R$">Brazil (BRL)</option>
+        <option value="DE" data-currency="EUR" data-symbol="€">Germany (EUR)</option>
+        <option value="FR" data-currency="EUR" data-symbol="€">France (EUR)</option>
+        <option value="KR" data-currency="KRW" data-symbol="₩">South Korea (KRW)</option>
+        <option value="SG" data-currency="SGD" data-symbol="S$">Singapore (SGD)</option>
+        <option value="AE" data-currency="AED" data-symbol="د.إ">UAE (AED)</option>
+        <option value="SA" data-currency="SAR" data-symbol="﷼">Saudi Arabia (SAR)</option>
+        <option value="ZA" data-currency="ZAR" data-symbol="R">South Africa (ZAR)</option>
+        <option value="MX" data-currency="MXN" data-symbol="Mex$">Mexico (MXN)</option>
+        <option value="NG" data-currency="NGN" data-symbol="₦">Nigeria (NGN)</option>
+        <option value="PK" data-currency="PKR" data-symbol="₨">Pakistan (PKR)</option>
+        <option value="BD" data-currency="BDT" data-symbol="৳">Bangladesh (BDT)</option>
+        <option value="PH" data-currency="PHP" data-symbol="₱">Philippines (PHP)</option>
+      </select>
+    </div>
+
+    <div class="pricing-cards">
+      <div class="pricing-card" id="freeCard" onclick="selectPlan('free')">
+        <div class="plan-header">
+          <h3>Free</h3>
+          <div class="price">$0</div>
+          <p>Forever</p>
         </div>
-        <div class="nav-actions">
-            <div class="user-menu" id="userMenu">
-                <div class="user-avatar" id="userAvatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
-                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> Access to all 45 problems</li>
+          <li><i class="fas fa-check"></i> Basic code editor</li>
+          <li><i class="fas fa-check"></i> Community discussions</li>
+          <li><i class="fas fa-check"></i> 3 AI Agent queries/day</li>
+          <li class="disabled"><i class="fas fa-times"></i> Company tags</li>
+          <li class="disabled"><i class="fas fa-times"></i> Premium problems</li>
+        </ul>
+        <button class="btn btn-secondary btn-full" id="freeBtn">
+          Current Plan
+        </button>
+      </div>
+
+      <div class="pricing-card featured" id="proCard" onclick="selectPlan('pro')">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-header">
+          <h3>Pro</h3>
+          <div class="price">
+            <span class="amount" id="proPrice">₹279</span>
+            <span class="period">/month</span>
+          </div>
+          <p>Billed <span id="proBilling">monthly</span></p>
+        </div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> Everything in Free</li>
+          <li><i class="fas fa-check"></i> Unlimited AI Agent usage</li>
+          <li><i class="fas fa-check"></i> Company-specific problems</li>
+          <li><i class="fas fa-check"></i> Detailed analytics</li>
+          <li><i class="fas fa-check"></i> Priority support</li>
+          <li class="disabled"><i class="fas fa-times"></i> 1-on-1 mentoring</li>
+        </ul>
+        <button class="btn btn-primary btn-full" id="proBtn">
+          <i class="fas fa-crown"></i> Get Pro
+        </button>
+      </div>
+
+      <div class="pricing-card" id="enterpriseCard" onclick="selectPlan('enterprise')">
+        <div class="plan-header">
+          <h3>Enterprise</h3>
+          <div class="price">
+            <span class="amount" id="enterprisePrice">₹835</span>
+            <span class="period">/month</span>
+          </div>
+          <p>Billed <span id="enterpriseBilling">monthly</span></p>
+        </div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> Everything in Pro</li>
+          <li><i class="fas fa-check"></i> 1-on-1 mentoring sessions</li>
+          <li><i class="fas fa-check"></i> Custom learning paths</li>
+          <li><i class="fas fa-check"></i> Team management</li>
+          <li><i class="fas fa-check"></i> API access</li>
+          <li><i class="fas fa-check"></i> Dedicated support</li>
+        </ul>
+        <button class="btn btn-secondary btn-full" id="enterpriseBtn">
+          Contact Sales
+        </button>
+      </div>
+    </div>
+
+    <div id="paymentSection" class="payment-section" style="display:none">
+      <div class="payment-container">
+        <div class="payment-header">
+          <h2><i class="fas fa-lock"></i> Secure Payment</h2>
+          <p>You selected: <strong id="selectedPlanName">Pro</strong> - <span id="selectedPlanPrice">$9.99/month</span></p>
+        </div>
+
+        <div class="payment-methods">
+          <h3>Select Payment Method</h3>
+          <div class="method-tabs">
+            <button class="method-tab active" onclick="selectPaymentMethod('card')">
+              <i class="fas fa-credit-card"></i> Credit/Debit Card
+            </button>
+            <button class="method-tab" onclick="selectPaymentMethod('paypal')">
+              <i class="fab fa-paypal"></i> PayPal
+            </button>
+            <button class="method-tab" onclick="selectPaymentMethod('bank')">
+              <i class="fas fa-university"></i> Bank Transfer
+            </button>
+          </div>
+        </div>
+
+        <div id="cardForm" class="payment-form">
+          <div class="form-group">
+            <label>Card Number</label>
+            <div class="card-input-wrap">
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+              <div class="card-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+              </div>
             </div>
-        </div>
-    </nav>
-
-    <main class="container">
-        <div class="premium-header">
-            <h1><i class="fas fa-crown"></i> LeetCode Premium</h1>
-            <p>Unlock all features and accelerate your learning</p>
-        </div>
-
-        <div class="pricing-toggle">
-            <span class="active" id="monthlyLabel">Monthly</span>
-            <label class="switch">
-                <input type="checkbox" id="pricingToggle">
-                <span class="slider"></span>
-            </label>
-            <span id="yearlyLabel">Yearly <span class="badge">Save 20%</span></span>
-        </div>
-
-        <div class="pricing-cards">
-            <div class="pricing-card">
-                <div class="plan-header">
-                    <h3>Free</h3>
-                    <div class="price">$0</div>
-                    <p>Forever</p>
-                </div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Access to all problems</li>
-                    <li><i class="fas fa-check"></i> Basic code editor</li>
-                    <li><i class="fas fa-check"></i> Community discussions</li>
-                    <li class="disabled"><i class="fas fa-times"></i> AI Agents</li>
-                    <li class="disabled"><i class="fas fa-times"></i> Company tags</li>
-                    <li class="disabled"><i class="fas fa-times"></i> Premium problems</li>
-                </ul>
-                <button class="btn btn-secondary btn-full">
-                    Current Plan
-                </button>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
             </div>
-
-            <div class="pricing-card featured">
-                <div class="plan-badge">Most Popular</div>
-                <div class="plan-header">
-                    <h3>Pro</h3>
-                    <div class="price">
-                        <span class="amount" id="proPrice">$9.99</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <p>Billed <span id="proBilling">monthly</span></p>
-                </div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Everything in Free</li>
-                    <li><i class="fas fa-check"></i> Unlimited AI Agent usage</li>
-                    <li><i class="fas fa-check"></i> Company-specific problems</li>
-                    <li><i class="fas fa-check"></i> Detailed analytics</li>
-                    <li><i class="fas fa-check"></i> Priority support</li>
-                    <li class="disabled"><i class="fas fa-times"></i> 1-on-1 mentoring</li>
-                </ul>
-                <button class="btn btn-primary btn-full" onclick="subscribePlan('pro')">
-                    <i class="fas fa-crown"></i> Get Pro
-                </button>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" id="cardCvv" placeholder="123" maxlength="4">
             </div>
-
-            <div class="pricing-card">
-                <div class="plan-header">
-                    <h3>Enterprise</h3>
-                    <div class="price">
-                        <span class="amount" id="enterprisePrice">$29.99</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <p>Billed <span id="enterpriseBilling">monthly</span></p>
-                </div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Everything in Pro</li>
-                    <li><i class="fas fa-check"></i> 1-on-1 mentoring sessions</li>
-                    <li><i class="fas fa-check"></i> Custom learning paths</li>
-                    <li><i class="fas fa-check"></i> Team management</li>
-                    <li><i class="fas fa-check"></i> API access</li>
-                    <li><i class="fas fa-check"></i> Dedicated support</li>
-                </ul>
-                <button class="btn btn-secondary btn-full" onclick="subscribePlan('enterprise')">
-                    Contact Sales
-                </button>
-            </div>
+          </div>
+          <div class="form-group">
+            <label>Cardholder Name</label>
+            <input type="text" id="cardName" placeholder="John Doe">
+          </div>
         </div>
 
-        <div class="features-section">
-            <h2>Why Upgrade to Premium?</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h4>AI Agents</h4>
-                    <p>Get personalized help from AI assistants for hints, code review, and debugging</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h4>Company Tags</h4>
-                    <p>Practice problems frequently asked at top tech companies</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h4>Analytics</h4>
-                    <p>Track your progress with detailed performance analytics</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h4>Priority Support</h4>
-                    <p>Get faster responses from our support team</p>
-                </div>
-            </div>
+        <div id="paypalForm" class="payment-form" style="display:none">
+          <div class="paypal-info">
+            <i class="fab fa-paypal" style="font-size:48px;color:#003087;margin-bottom:16px"></i>
+            <p>You will be redirected to PayPal to complete your payment securely.</p>
+          </div>
         </div>
 
-        <div class="faq-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Can I cancel anytime?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, you can cancel your subscription at any time. Your access will continue until the end of your billing period.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Is there a free trial?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, we offer a 7-day free trial for new users. No credit card required.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What payment methods do you accept?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We accept all major credit cards, PayPal, and bank transfers for enterprise plans.</p>
-                    </div>
-                </div>
+        <div id="bankForm" class="payment-form" style="display:none">
+          <div class="bank-info">
+            <h4><i class="fas fa-university"></i> Bank Transfer Details</h4>
+            <div class="bank-details">
+              <div class="bank-row"><span>Bank Name:</span><strong>Chase Bank</strong></div>
+              <div class="bank-row"><span>Account Name:</span><strong>LeetCode Inc.</strong></div>
+              <div class="bank-row"><span>Account Number:</span><strong>**** **** **** 7890</strong></div>
+              <div class="bank-row"><span>Routing Number:</span><strong>021000021</strong></div>
+              <div class="bank-row"><span>IBAN:</span><strong>US12 3456 7890 1234 5678 90</strong></div>
+              <div class="bank-row"><span>Reference:</span><strong id="bankRef">LC-PRO-000000</strong></div>
             </div>
+            <p class="bank-note">Please include the reference number in your transfer. Access will be activated within 24 hours after payment confirmation.</p>
+          </div>
         </div>
-    </main>
 
-    <script src="js/services.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/premium.js"></script>
+        <div class="order-summary">
+          <h4>Order Summary</h4>
+          <div class="summary-row"><span>Plan</span><span id="summaryPlan">Pro (Monthly)</span></div>
+          <div class="summary-row"><span>Amount</span><span id="summaryAmount">$9.99</span></div>
+          <div class="summary-row"><span>Tax</span><span id="summaryTax">$0.00</span></div>
+          <div class="summary-row total"><span>Total</span><span id="summaryTotal">$9.99</span></div>
+        </div>
+
+        <button class="btn btn-primary btn-full btn-lg" id="payBtn" onclick="processPayment()">
+          <i class="fas fa-lock"></i> Pay Now
+        </button>
+        <p class="payment-secure"><i class="fas fa-shield-alt"></i> Your payment is secured with 256-bit SSL encryption</p>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <h2>Why Upgrade to Premium?</h2>
+      <div class="features-grid">
+        <div class="feature-item" onclick="showFeatureDetail('ai')">
+          <div class="feature-icon"><i class="fas fa-robot"></i></div>
+          <h4>AI Agents</h4>
+          <p>Get personalized help from AI assistants for hints, code review, and debugging</p>
+          <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+        </div>
+        <div class="feature-item" onclick="showFeatureDetail('company')">
+          <div class="feature-icon"><i class="fas fa-building"></i></div>
+          <h4>Company Tags</h4>
+          <p>Practice problems frequently asked at top tech companies</p>
+          <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+        </div>
+        <div class="feature-item" onclick="showFeatureDetail('analytics')">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h4>Analytics</h4>
+          <p>Track your progress with detailed performance analytics</p>
+          <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+        </div>
+        <div class="feature-item" onclick="showFeatureDetail('support')">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <h4>Priority Support</h4>
+          <p>Get faster responses from our support team</p>
+          <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="featureModal" class="modal">
+      <div class="modal-content" style="max-width:500px;text-align:left;padding:28px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h3 id="featureModalTitle" style="margin:0"></h3>
+          <button onclick="closeFeatureModal()" style="background:none;border:none;color:var(--text-secondary);font-size:20px;cursor:pointer"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="featureModalBody"></div>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I cancel anytime?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, you can cancel your subscription at any time. Your access will continue until the end of your billing period.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a free trial?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, we offer a 7-day free trial for new users. No credit card required.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We accept all major credit/debit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for enterprise plans.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What happens after I upgrade?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Your premium features are activated instantly. You'll have unlimited access to AI agents, company tags, and detailed analytics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <div id="paymentModal" class="modal">
+      <div class="modal-content" style="max-width:400px;text-align:center;padding:40px">
+        <div id="paymentSuccess" style="text-align:center;padding:20px">
+          <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+          <h2>Payment Successful!</h2>
+          <p>Welcome to <strong id="modalPlanName">Pro</strong></p>
+          <p>Your premium features are now active.</p>
+          <button class="btn btn-primary" onclick="closeModal()" style="margin-top:20px">Start Exploring</button>
+        </div>
+      </div>
+    </div>
+
+  <script src="js/services.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/premium.js"></script>
 </body>
 </html>

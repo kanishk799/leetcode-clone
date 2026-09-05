@@ -989,6 +989,144 @@ const problemsData = [
       { input: '[-123]', expected: '-321', hidden: false },
       { input: '[120]', expected: '21', hidden: false }
     ]
+  },
+  {
+    id: 40, slug: 'median-of-two-sorted-arrays', title: 'Median of Two Sorted Arrays', difficulty: 'Hard', acceptance: 35.8,
+    description: '<p>Given two sorted arrays <code>nums1</code> and <code>nums2</code> of size <code>m</code> and <code>n</code> respectively, return <strong>the median</strong> of the two sorted arrays.</p><p>The overall run time complexity should be O(log (m+n)).</p>',
+    constraints: '["nums1.length == m","nums2.length == n","0 <= m <= 1000","0 <= n <= 1000","1 <= m + n <= 2000","-10^6 <= nums1[i], nums2[i] <= 10^6"]',
+    topics: '["Array","Binary Search","Divide and Conquer"]', companies: '["Google","Amazon","Microsoft","Apple"]',
+    examples: [
+      { input: 'nums1 = [1,3], nums2 = [2]', output: '2.0', explanation: 'merged array = [1,2,3] and median is 2.' },
+      { input: 'nums1 = [1,2], nums2 = [3,4]', output: '2.5', explanation: 'merged array = [1,2,3,4] and median is (2+3)/2 = 2.5.' }
+    ],
+    templates: {
+      javascript: 'function findMedianSortedArrays(nums1, nums2) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '[[1,3],[2]]', expected: '2.0', hidden: false },
+      { input: '[[1,2],[3,4]]', expected: '2.5', hidden: false },
+      { input: '[[0,0],[0,0]]', expected: '0.0', hidden: true },
+      { input: '[[],[1]]', expected: '1.0', hidden: true }
+    ]
+  },
+  {
+    id: 41, slug: 'regular-expression-matching', title: 'Regular Expression Matching', difficulty: 'Hard', acceptance: 28.5,
+    description: '<p>Given an input string <code>s</code> and a pattern <code>p</code>, implement regular expression matching with support for <code>\'.\'</code> and <code>\'*\'</code> where:</p><ul><li><code>\'\'.\'</code> matches any single character.</li><li><code>\'*\'</code> matches zero or more of the preceding element.</li></ul><p>The matching should cover the <strong>entire</strong> input string (not partial).</p>',
+    constraints: '["1 <= s.length <= 20","1 <= p.length <= 20","s contains only lowercase English letters.","p contains only lowercase English letters, \'.\', and \'*\'.","It is guaranteed for each appearance of the character \'*\', there will be a previous valid character to match."]',
+    topics: '["String","Dynamic Programming","Recursion"]', companies: '["Google","Amazon","Meta","Microsoft"]',
+    examples: [
+      { input: 's = "aa", p = "a"', output: 'false', explanation: '"a" does not match the entire string "aa".' },
+      { input: 's = "aa", p = "a*"', output: 'true', explanation: '"*" means zero or more of the preceding element "a".' },
+      { input: 's = "ab", p = ".*"', output: 'true', explanation: '".*" means "zero or more of any element".' }
+    ],
+    templates: {
+      javascript: 'function isMatch(s, p) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public boolean isMatch(String s, String p) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    bool isMatch(string s, string p) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'bool isMatch(char* s, char* p) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '["aa","a"]', expected: 'false', hidden: false },
+      { input: '["aa","a*"]', expected: 'true', hidden: false },
+      { input: '["ab",".*"]', expected: 'true', hidden: false },
+      { input: '["mississippi","mis*is*p*."]', expected: 'false', hidden: true }
+    ]
+  },
+  {
+    id: 42, slug: 'merge-k-sorted-lists', title: 'Merge k Sorted Lists', difficulty: 'Hard', acceptance: 48.2,
+    description: '<p>You are given an array of <code>k</code> linked-lists <code>lists</code>, each linked-list is sorted in ascending order.</p><p>Merge all the linked-lists into one sorted linked-list and return it.</p>',
+    constraints: '["k == lists.length","0 <= k <= 10^4","0 <= lists[i].length <= 500","-10^4 <= lists[i][j] <= 10^4","lists[i] is sorted in ascending order.","The total number of nodes across all lists will not exceed 10^4."]',
+    topics: '["Linked List","Heap (Priority Queue)","Divide and Conquer"]', companies: '["Amazon","Google","Meta","Microsoft"]',
+    examples: [
+      { input: 'lists = [[1,4,5],[1,3,4],[2,6]]', output: '[1,1,2,3,4,4,5,6]', explanation: '' },
+      { input: 'lists = []', output: '[]', explanation: '' },
+      { input: 'lists = [[]]', output: '[]', explanation: '' }
+    ],
+    templates: {
+      javascript: 'function mergeKLists(lists) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    ListNode* mergeKLists(vector<ListNode*>& lists) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '[[1,4,5],[1,3,4],[2,6]]', expected: '[1,1,2,3,4,4,5,6]', hidden: false },
+      { input: '[[]]', expected: '[]', hidden: false },
+      { input: '[[1]]', expected: '[1]', hidden: true }
+    ]
+  },
+  {
+    id: 43, slug: 'trapping-rain-water', title: 'Trapping Rain Water', difficulty: 'Hard', acceptance: 58.5,
+    description: '<p>Given <code>n</code> non-negative integers representing an elevation map where the width of each bar is <code>1</code>, compute how much water it can trap after raining.</p>',
+    constraints: '["n == height.length","1 <= n <= 2 * 10^4","0 <= height[i] <= 10^5"]',
+    topics: '["Array","Two Pointers","Stack","Dynamic Programming"]', companies: '["Amazon","Google","Goldman Sachs","Microsoft"]',
+    examples: [
+      { input: 'height = [0,1,0,2,1,0,1,3,2,1,2,1]', output: '6', explanation: '' },
+      { input: 'height = [4,2,0,3,2,5]', output: '9', explanation: '' }
+    ],
+    templates: {
+      javascript: 'function trap(height) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def trap(self, height: list[int]) -> int:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public int trap(int[] height) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    int trap(vector<int>& height) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'int trap(int* height, int heightSize) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '[[0,1,0,2,1,0,1,3,2,1,2,1]]', expected: '6', hidden: false },
+      { input: '[[4,2,0,3,2,5]]', expected: '9', hidden: false },
+      { input: '[[1,0,1]]', expected: '1', hidden: true }
+    ]
+  },
+  {
+    id: 44, slug: 'edit-distance', title: 'Edit Distance', difficulty: 'Hard', acceptance: 52.3,
+    description: '<p>Given two strings <code>word1</code> and <code>word2</code>, return <em>the minimum number of operations required to convert <code>word1</code> to <code>word2</code></em>.</p><p>You have the following three operations permitted on a word: Insert a character, Delete a character, Replace a character.</p>',
+    constraints: '["0 <= word1.length, word2.length <= 500","word1 and word2 consist of only lowercase English letters."]',
+    topics: '["String","Dynamic Programming"]', companies: '["Google","Amazon","Microsoft","Meta"]',
+    examples: [
+      { input: 'word1 = "horse", word2 = "ros"', output: '3', explanation: 'horse -> rorse (replace h with r) -> rose (remove r) -> ros (remove e)' },
+      { input: 'word1 = "intention", word2 = "execution"', output: '5', explanation: '' }
+    ],
+    templates: {
+      javascript: 'function minDistance(word1, word2) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def minDistance(self, word1: str, word2: str) -> int:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public int minDistance(String word1, String word2) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'int minDistance(char* word1, char* word2) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '["horse","ros"]', expected: '3', hidden: false },
+      { input: '["intention","execution"]', expected: '5', hidden: false },
+      { input: '["","a"]', expected: '1', hidden: true }
+    ]
+  },
+  {
+    id: 45, slug: 'longest-valid-parentheses', title: 'Longest Valid Parentheses', difficulty: 'Hard', acceptance: 33.2,
+    description: '<p>Given a string containing just the characters <code>\'(\'</code> and <code>\')\'</code>, find the length of the longest valid (well-formed) parentheses substring.</p>',
+    constraints: '["0 <= s.length <= 3 * 10^4","s[i] is \'(\' or \')\'."]',
+    topics: '["String","Dynamic Programming","Stack"]', companies: '["Amazon","Google","Meta"]',
+    examples: [
+      { input: 's = "(()"', output: '2', explanation: 'The longest valid parentheses substring is "()".' },
+      { input: 's = ")()())"', output: '4', explanation: 'The longest valid parentheses substring is "()()".' },
+      { input: 's = ""', output: '0', explanation: '' }
+    ],
+    templates: {
+      javascript: 'function longestValidParentheses(s) {\n    // Write your solution here\n}',
+      python: 'class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        # Write your solution here\n        pass',
+      java: 'class Solution {\n    public int longestValidParentheses(String s) {\n        // Write your solution here\n        \n    }\n}',
+      cpp: 'class Solution {\npublic:\n    int longestValidParentheses(string s) {\n        // Write your solution here\n        \n    }\n};',
+      c: 'int longestValidParentheses(char* s) {\n    // Write your solution here\n    \n}'
+    },
+    testCases: [
+      { input: '["(()"]', expected: '2', hidden: false },
+      { input: '["()()"]', expected: '4', hidden: false },
+      { input: '[""]', expected: '0', hidden: false },
+      { input: '["()(())"]', expected: '6', hidden: true }
+    ]
   }
 ];
 
@@ -1077,8 +1215,11 @@ function seedDatabase() {
 }
 
 if (require.main === module) {
-  seedDatabase();
-  process.exit(0);
+  const { initDatabase } = require('./database');
+  initDatabase().then(() => {
+    seedDatabase();
+    process.exit(0);
+  });
 }
 
 module.exports = { seedDatabase };
