@@ -1,109 +1,81 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const contestTabs = document.querySelectorAll('.contest-tab');
-    const contestContent = document.getElementById('contestContent');
+document.addEventListener('DOMContentLoaded', async () => {
+  updateNavbar();
 
-    // Tab switching
-    contestTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            contestTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            
-            const tabType = tab.dataset.tab;
-            loadContests(tabType);
-        });
-    });
+  const contestList = document.getElementById('contestList');
+  const upcomingList = document.getElementById('upcomingList');
+  const ongoingList = document.getElementById('ongoingList');
+  const endedList = document.getElementById('endedList');
 
-    // Load contests based on tab
-    function loadContests(type) {
-        const contests = {
-            upcoming: `
-                <div class="contest-card">
-                    <div class="contest-status live">
-                        <i class="fas fa-circle"></i> LIVE NOW
-                    </div>
-                    <h3>Weekly Contest 350</h3>
-                    <div class="contest-info">
-                        <span><i class="fas fa-clock"></i> 1:30:00</span>
-                        <span><i class="fas fa-users"></i> 12,456 participants</span>
-                    </div>
-                    <button class="btn btn-danger" onclick="joinContest(350)">
-                        <i class="fas fa-play"></i> Join Now
-                    </button>
-                </div>
-                <div class="contest-card">
-                    <div class="contest-status upcoming">
-                        <i class="fas fa-calendar"></i> UPCOMING
-                    </div>
-                    <h3>Biweekly Contest 120</h3>
-                    <div class="contest-info">
-                        <span><i class="fas fa-clock"></i> Starts in 2 days</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="setReminder(120)">
-                        <i class="fas fa-bell"></i> Remind Me
-                    </button>
-                </div>
-            `,
-            past: `
-                <div class="contest-card completed">
-                    <div class="contest-status completed">
-                        <i class="fas fa-check"></i> COMPLETED
-                    </div>
-                    <h3>Weekly Contest 349</h3>
-                    <div class="contest-info">
-                        <span><i class="fas fa-users"></i> 15,234 participants</span>
-                        <span><i class="fas fa-trophy"></i> Your rank: 1,245</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="viewContest(349)">
-                        <i class="fas fa-eye"></i> View Results
-                    </button>
-                </div>
-                <div class="contest-card completed">
-                    <div class="contest-status completed">
-                        <i class="fas fa-check"></i> COMPLETED
-                    </div>
-                    <h3>Biweekly Contest 119</h3>
-                    <div class="contest-info">
-                        <span><i class="fas fa-users"></i> 18,567 participants</span>
-                        <span><i class="fas fa-trophy"></i> Your rank: 2,345</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="viewContest(119)">
-                        <i class="fas fa-eye"></i> View Results
-                    </button>
-                </div>
-            `,
-            'my-contests': `
-                <div class="empty-state">
-                    <i class="fas fa-trophy"></i>
-                    <h3>No contests yet</h3>
-                    <p>Join a contest to see your history here</p>
-                    <button class="btn btn-primary" onclick="loadContests('upcoming')">
-                        Browse Contests
-                    </button>
-                </div>
-            `
-        };
+  try {
+    const data = await ContestsService.getAll();
+    const contests = data.contests;
 
-        contestContent.innerHTML = `<div class="contest-list">${contests[type]}</div>`;
+    if (contests.length === 0) {
+      contestList.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><h3>No contests yet</h3><p>Check back soon!</p></div>';
+      return;
     }
 
-    // Join contest
-    window.joinContest = function(contestId) {
-        const user = localStorage.getItem('currentUser');
-        if (!user) {
-            alert('Please login to join contests');
-            window.location.href = 'login.html';
-            return;
-        }
-        alert(`Joining Contest ${contestId}... This is a demo!`);
-    };
+    const upcoming = contests.filter(c => c.status === 'upcoming');
+    const ongoing = contests.filter(c => c.status === 'ongoing');
+    const ended = contests.filter(c => c.status === 'ended');
 
-    // Set reminder
-    window.setReminder = function(contestId) {
-        alert(`Reminder set for Contest ${contestId}!`);
-    };
+    renderSection(upcomingList, upcoming, 'upcoming');
+    renderSection(ongoingList, ongoing, 'ongoing');
+    renderSection(endedList, ended, 'ended');
+  } catch (err) {
+    console.error('Failed to load contests:', err);
+    contestList.innerHTML = '<div class="empty-state"><p>Failed to load contests</p></div>';
+  }
 
-    // View contest results
-    window.viewContest = function(contestId) {
-        alert(`Viewing results for Contest ${contestId}... This is a demo!`);
-    };
+  function renderSection(container, contests, status) {
+    if (!container) return;
+    if (contests.length === 0) {
+      container.innerHTML = '<p class="empty">No contests in this category</p>';
+      return;
+    }
+
+    container.innerHTML = contests.map(c => `
+      <div class="contest-card ${status}">
+        <div class="contest-header">
+          <h3>${escapeHtml(c.title)}</h3>
+          <span class="contest-status ${status}">${c.starts_at ? formatDate(c.starts_at) : status}</span>
+        </div>
+        <p>${escapeHtml(c.description?.substring(0, 150) || '')}</p>
+        <div class="contest-footer">
+          <span><i class="fas fa-users"></i> ${c.participants} joined</span>
+          <span><i class="fas fa-clock"></i> ${c.duration} minutes</span>
+          <div class="contest-actions">
+            ${status === 'upcoming' ? `<button class="btn btn-primary btn-sm" onclick="joinContest(${c.id})">Register</button>` : ''}
+            ${status === 'ongoing' ? `<button class="btn btn-success btn-sm" onclick="enterContest(${c.id})">Enter</button>` : ''}
+            ${status === 'ended' ? `<a href="contest.html?id=${c.id}" class="btn btn-secondary btn-sm">Results</a>` : ''}
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  window.joinContest = async function(id) {
+    if (!AuthService.isLoggedIn()) { toast.warning('Please login to register'); return; }
+    try {
+      await ContestsService.register(id);
+      toast.success('Registered successfully!');
+      location.reload();
+    } catch (err) {
+      toast.error(err.message || 'Failed to register');
+    }
+  };
+
+  window.enterContest = async function(id) {
+    window.location.href = `contest.html?id=${id}`;
+  };
 });
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}

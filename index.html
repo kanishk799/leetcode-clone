@@ -20,7 +20,7 @@
             <a href="premium.html">Premium</a>
         </div>
         <div class="nav-actions">
-            <button class="btn-icon" id="themeToggle">
+            <button class="btn-icon" id="themeToggle" title="Toggle theme">
                 <i class="fas fa-moon"></i>
             </button>
             <div class="user-menu">
@@ -36,12 +36,23 @@
     </nav>
 
     <main class="container">
+        <div class="daily-challenge-banner" id="dailyChallenge" style="display:none">
+            <div class="daily-challenge-content">
+                <i class="fas fa-calendar-day"></i>
+                <div>
+                    <strong>Daily Challenge</strong>
+                    <span id="dailyChallengeTitle"></span>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary btn-sm" id="dailyChallengeLink">Solve Now</a>
+        </div>
+
         <div class="problems-header">
             <h1>Problems</h1>
             <div class="filters">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search problems...">
+                    <input type="text" id="searchInput" placeholder="Search by title, ID, or topic...">
                 </div>
                 <select id="difficultyFilter">
                     <option value="all">All Difficulties</option>
@@ -55,6 +66,16 @@
                     <option value="attempted">Attempted</option>
                     <option value="todo">To Do</option>
                 </select>
+                <select id="topicFilter">
+                    <option value="all">All Topics</option>
+                </select>
+                <select id="sortSelect">
+                    <option value="id_asc">Problem # (Ascending)</option>
+                    <option value="difficulty_asc">Difficulty (Easy first)</option>
+                    <option value="difficulty_desc">Difficulty (Hard first)</option>
+                    <option value="acceptance_desc">Acceptance (Highest)</option>
+                    <option value="title_asc">Title (A-Z)</option>
+                </select>
             </div>
         </div>
 
@@ -62,14 +83,17 @@
             <div class="stat-card easy">
                 <div class="stat-number" id="easyCount">0</div>
                 <div class="stat-label">Easy</div>
+                <div class="stat-solved" id="easySolved">0 Solved</div>
             </div>
             <div class="stat-card medium">
                 <div class="stat-number" id="mediumCount">0</div>
                 <div class="stat-label">Medium</div>
+                <div class="stat-solved" id="mediumSolved">0 Solved</div>
             </div>
             <div class="stat-card hard">
                 <div class="stat-number" id="hardCount">0</div>
                 <div class="stat-label">Hard</div>
+                <div class="stat-solved" id="hardSolved">0 Solved</div>
             </div>
         </div>
 
@@ -77,23 +101,36 @@
             <table class="problems-table">
                 <thead>
                     <tr>
-                        <th>Status</th>
+                        <th style="width:50px">Status</th>
+                        <th style="width:60px">#</th>
                         <th>Title</th>
-                        <th>Acceptance</th>
-                        <th>Difficulty</th>
+                        <th>Topics</th>
+                        <th style="width:100px">Acceptance</th>
+                        <th style="width:100px">Difficulty</th>
                     </tr>
                 </thead>
                 <tbody id="problemsList">
                 </tbody>
             </table>
+            <div class="loading-state" id="loadingState">
+                <i class="fas fa-spinner fa-spin"></i> Loading problems...
+            </div>
+            <div class="empty-state" id="emptyState" style="display:none">
+                <i class="fas fa-search"></i>
+                <h3>No problems found</h3>
+                <p>Try adjusting your filters</p>
+            </div>
         </div>
+
+        <div class="pagination" id="pagination"></div>
     </main>
 
     <footer class="footer">
         <p>&copy; 2026 LeetCode Clone. Practice makes perfect.</p>
     </footer>
 
-    <script src="js/data.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

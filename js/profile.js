@@ -1,74 +1,104 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const profileName = document.getElementById('profileName');
-    const profileEmail = document.getElementById('profileEmail');
-    const profileAvatar = document.getElementById('profileAvatar');
-    const solvedCount = document.getElementById('solvedCount');
-    const submissionsCount = document.getElementById('submissionsCount');
-    const streakCount = document.getElementById('streakCount');
-    const ranking = document.getElementById('ranking');
-    const editProfileBtn = document.getElementById('editProfileBtn');
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!requireAuth()) return;
 
-    // Check if user is logged in
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
-        window.location.href = 'login.html';
-        return;
+  updateNavbar();
+
+  const profileName = document.getElementById('profileName');
+  const profileEmail = document.getElementById('profileEmail');
+  const profileAvatar = document.getElementById('profileAvatar');
+
+  try {
+    const data = await ProfileService.get();
+    const { user, stats, recentSubmissions, topicStats, dailyActivity, solvedProblems } = data;
+
+    // Basic info
+    profileName.textContent = user.username;
+    profileEmail.textContent = user.email;
+    profileAvatar.innerHTML = `<span>${user.username[0].toUpperCase()}</span>`;
+
+    // Stats
+    document.getElementById('solvedCount').textContent = stats.solvedTotal;
+    document.getElementById('submissionsCount').textContent = stats.totalSubmissions;
+    document.getElementById('streakCount').textContent = stats.streak;
+    document.getElementById('ranking').textContent = `#${stats.ranking}`;
+
+    // Progress bars
+    const easyPct = stats.easyTotal > 0 ? (stats.solvedEasy / stats.easyTotal * 100) : 0;
+    const medPct = stats.mediumTotal > 0 ? (stats.solvedMedium / stats.mediumTotal * 100) : 0;
+    const hardPct = stats.hardTotal > 0 ? (stats.solvedHard / stats.hardTotal * 100) : 0;
+
+    document.getElementById('easyProgress').textContent = `${stats.solvedEasy}/${stats.easyTotal}`;
+    document.getElementById('easyBar').style.width = `${easyPct}%`;
+    document.getElementById('mediumProgress').textContent = `${stats.solvedMedium}/${stats.mediumTotal}`;
+    document.getElementById('mediumBar').style.width = `${medPct}%`;
+    document.getElementById('hardProgress').textContent = `${stats.solvedHard}/${stats.hardTotal}`;
+    document.getElementById('hardBar').style.width = `${hardPct}%`;
+
+    // Acceptance rate
+    const acceptanceEl = document.getElementById('acceptanceRate');
+    if (acceptanceEl) acceptanceEl.textContent = `${stats.acceptanceRate}%`;
+
+    // Recent activity
+    const activityList = document.getElementById('activityList');
+    if (recentSubmissions.length > 0) {
+      activityList.innerHTML = recentSubmissions.map(s => `
+        <div class="activity-item">
+          <div class="activity-icon ${s.status === 'Accepted' ? 'solved' : 'attempted'}">
+            <i class="fas ${s.status === 'Accepted' ? 'fa-check' : 'fa-code'}"></i>
+          </div>
+          <div class="activity-content">
+            <p><a href="problem.html?id=${s.problem_id}">${s.problem_title}</a> - ${s.status}</p>
+            <span class="time">${s.language} | ${s.runtime_ms}ms | ${timeAgo(s.created_at)}</span>
+          </div>
+        </div>`).join('');
+    } else {
+      activityList.innerHTML = '<p class="empty-state">No activity yet. Start solving problems!</p>';
     }
 
-    // Load user profile
-    function loadProfile() {
-        profileName.textContent = currentUser.name;
-        profileEmail.textContent = currentUser.email;
-        profileAvatar.innerHTML = `<span>${currentUser.name.charAt(0).toUpperCase()}</span>`;
-        
-        // Load stats from localStorage
-        const progress = JSON.parse(localStorage.getItem('leetcodeProgress')) || {};
-        const solved = Object.values(progress).filter(v => v === 'solved').length;
-        const attempted = Object.values(progress).filter(v => v === 'attempted').length;
-        
-        solvedCount.textContent = solved;
-        submissionsCount.textContent = solved + attempted;
-        streakCount.textContent = Math.floor(Math.random() * 30) + 1;
-        ranking.textContent = `#${Math.floor(Math.random() * 50000) + 1000}`;
-        
-        // Update progress bars
-        updateProgressBars(solved);
+    // Topic progress
+    const topicList = document.getElementById('topicProgress');
+    if (topicList && Object.keys(topicStats).length > 0) {
+      const sorted = Object.entries(topicStats).sort((a, b) => b[1].solved - a[1].solved);
+      topicList.innerHTML = sorted.slice(0, 10).map(([topic, data]) => `
+        <div class="topic-progress-item">
+          <span>${topic}</span>
+          <div class="topic-bar">
+            <div class="topic-bar-fill" style="width: ${data.total > 0 ? (data.solved / data.total * 100) : 0}%"></div>
+          </div>
+          <span>${data.solved}/${data.total}</span>
+        </div>`).join('');
     }
 
-    function updateProgressBars(solved) {
-        const easy = Math.min(Math.floor(solved * 0.4), 50);
-        const medium = Math.min(Math.floor(solved * 0.4), 100);
-        const hard = Math.min(Math.floor(solved * 0.2), 50);
-        
-        document.getElementById('easyProgress').textContent = `${easy}/50`;
-        document.getElementById('mediumProgress').textContent = `${medium}/100`;
-        document.getElementById('hardProgress').textContent = `${hard}/50`;
-        
-        document.getElementById('easyBar').style.width = `${(easy/50)*100}%`;
-        document.getElementById('mediumBar').style.width = `${(medium/100)*100}%`;
-        document.getElementById('hardBar').style.width = `${(hard/50)*100}%`;
+    // Solved problems
+    const solvedList = document.getElementById('solvedProblems');
+    if (solvedList && solvedProblems.length > 0) {
+      solvedList.innerHTML = solvedProblems.map(p => `
+        <a href="problem.html?id=${p.id}" class="solved-item">
+          <span class="difficulty-badge ${p.difficulty.toLowerCase()}">${p.difficulty[0]}</span>
+          <span>${p.title}</span>
+        </a>`).join('');
     }
+  } catch (err) {
+    console.error('Failed to load profile:', err);
+    toast.error('Failed to load profile');
+  }
 
-    // Edit profile
-    editProfileBtn.addEventListener('click', () => {
-        const newName = prompt('Enter new username:', currentUser.name);
-        if (newName && newName.trim()) {
-            currentUser.name = newName.trim();
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            loadProfile();
+  // Edit profile
+  document.getElementById('editProfileBtn')?.addEventListener('click', async () => {
+    const newName = prompt('Enter new username:');
+    if (newName && newName.trim()) {
+      try {
+        await ProfileService.updateUsername(newName.trim());
+        toast.success('Username updated');
+        const user = AuthService.getCurrentUser();
+        if (user) {
+          user.username = newName.trim();
+          localStorage.setItem('currentUser', JSON.stringify(user));
         }
-    });
-
-    // Load activity
-    function loadActivity() {
-        const activityList = document.getElementById('activityList');
-        const progress = JSON.parse(localStorage.getItem('leetcodeProgress')) || {};
-        
-        if (Object.keys(progress).length === 0) {
-            activityList.innerHTML = '<p class="empty-state">No activity yet. Start solving problems!</p>';
-        }
+        document.getElementById('profileName').textContent = newName.trim();
+      } catch (err) {
+        toast.error(err.message || 'Failed to update username');
+      }
     }
-
-    loadProfile();
-    loadActivity();
+  });
 });

@@ -16,33 +16,39 @@
         </div>
         <div class="nav-links">
             <a href="index.html">Problems</a>
+            <a href="contest.html">Contest</a>
+            <a href="agents.html">AI Agents</a>
+            <a href="discuss.html">Discuss</a>
         </div>
         <div class="nav-actions">
-            <button class="btn btn-secondary" id="resetCode">
-                <i class="fas fa-redo"></i> Reset
+            <button class="btn-icon" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
             </button>
-            <button class="btn btn-primary" id="runCode">
-                <i class="fas fa-play"></i> Run
-            </button>
-            <button class="btn btn-success" id="submitCode">
-                <i class="fas fa-check"></i> Submit
-            </button>
+            <div class="user-menu">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="problem-container">
-        <div class="problem-panel">
+        <div class="problem-panel" id="problemPanel">
             <div class="problem-header">
-                <h1 id="problemTitle">Problem Title</h1>
+                <h1 id="problemTitle">Loading...</h1>
                 <span class="difficulty-badge" id="problemDifficulty">Easy</span>
             </div>
+            <div class="problem-topics" id="problemTopics"></div>
             <div class="problem-description" id="problemDescription">
-                <p>Loading problem...</p>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text short"></div>
             </div>
-            <div class="examples" id="problemExamples">
-            </div>
-            <div class="constraints" id="problemConstraints">
-            </div>
+            <div class="examples" id="problemExamples"></div>
+            <div class="constraints" id="problemConstraints"></div>
+            <div class="follow-up" id="problemFollowUp" style="display:none"></div>
         </div>
 
         <div class="editor-panel">
@@ -53,21 +59,40 @@
                         <option value="python">Python</option>
                         <option value="java">Java</option>
                         <option value="cpp">C++</option>
+                        <option value="c">C</option>
                     </select>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn btn-secondary btn-sm" id="resetCode" title="Reset code">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-primary btn-sm" id="runCode">
+                        <i class="fas fa-play"></i> Run
+                    </button>
+                    <button class="btn btn-success btn-sm" id="submitCode">
+                        <i class="fas fa-check"></i> Submit
+                    </button>
                 </div>
             </div>
             <div class="code-editor">
                 <textarea id="codeEditor"></textarea>
             </div>
-            <div class="output-panel">
-                <div class="output-header">
-                    <span>Output</span>
-                    <button class="btn-icon" id="clearOutput">
-                        <i class="fas fa-times"></i>
-                    </button>
+            <div class="output-panel" id="outputPanel">
+                <div class="output-tabs">
+                    <button class="output-tab active" data-tab="testcase">Testcase</button>
+                    <button class="output-tab" data-tab="result">Test Result</button>
+                    <button class="output-tab" data-tab="submissions">Submissions</button>
                 </div>
                 <div class="output-content" id="outputContent">
-                    <p class="placeholder">Run your code to see output here</p>
+                    <div class="output-tab-content active" id="testcaseTab">
+                        <div class="testcase-inputs" id="testcaseInputs"></div>
+                    </div>
+                    <div class="output-tab-content" id="resultTab">
+                        <p class="placeholder">Run your code to see results</p>
+                    </div>
+                    <div class="output-tab-content" id="submissionsTab">
+                        <p class="placeholder">Submit to see submission history</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,8 +102,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
-    <script src="js/data.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/problem.js"></script>
 </body>
 </html>
