@@ -1,136 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeetCode Clone - Practice Coding Problems</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problems - LeetCode</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="index.html"><i class="fas fa-code"></i> LeetCode Clone</a>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="index.html"><i class="fas fa-code logo"></i> LeetCode</a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Problems</a>
+      <a href="contest.html">Contest</a>
+      <a href="discuss.html">Discuss</a>
+      <a href="agents.html">AI Agents</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
+      <div class="user-menu">
+        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+          <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
-        <div class="nav-links">
-            <a href="index.html" class="active">Problems</a>
-            <a href="contest.html">Contest</a>
-            <a href="agents.html">AI Agents</a>
-            <a href="discuss.html">Discuss</a>
-            <a href="premium.html">Premium</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="problems-header">
+      <h1>Problems</h1>
+      <div class="filters">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search problems...">
         </div>
-        <div class="nav-actions">
-            <button class="btn-icon" id="themeToggle" title="Toggle theme">
-                <i class="fas fa-moon"></i>
-            </button>
-            <div class="user-menu">
-                <div class="user-avatar" id="userAvatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
-                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
+        <select id="difficultyFilter">
+          <option value="all">Difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+        <select id="topicFilter">
+          <option value="all">Topics</option>
+        </select>
+        <select id="sortSelect">
+          <option value="id_asc">Problem ID</option>
+          <option value="title_asc">Title A-Z</option>
+          <option value="difficulty_asc">Difficulty Low-High</option>
+          <option value="difficulty_desc">Difficulty High-Low</option>
+          <option value="acceptance_desc">Acceptance</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="dailyChallenge" class="daily-challenge-banner" style="display:none">
+      <div>
+        <i class="fas fa-calendar-day"></i>
+        <strong>Daily Challenge:</strong>
+        <a href="#" id="dailyChallengeLink" id="dailyChallengeTitle">Loading...</a>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stats-card easy">
+        <div class="ring">
+          <svg width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="#333" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#00b8a3" stroke-width="4" stroke-dasharray="126" stroke-dashoffset="126" stroke-linecap="round"/></svg>
+          <div class="ring-text" style="color:#00b8a3" id="easyPct">0%</div>
         </div>
-    </nav>
-
-    <main class="container">
-        <div class="daily-challenge-banner" id="dailyChallenge" style="display:none">
-            <div class="daily-challenge-content">
-                <i class="fas fa-calendar-day"></i>
-                <div>
-                    <strong>Daily Challenge</strong>
-                    <span id="dailyChallengeTitle"></span>
-                </div>
-            </div>
-            <a href="#" class="btn btn-primary btn-sm" id="dailyChallengeLink">Solve Now</a>
+        <div class="info">
+          <h3>Easy</h3>
+          <div class="count" id="easyCount">0</div>
+          <div style="font-size:12px;color:var(--text-secondary)" id="easySolved">0 Solved</div>
         </div>
-
-        <div class="problems-header">
-            <h1>Problems</h1>
-            <div class="filters">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search by title, ID, or topic...">
-                </div>
-                <select id="difficultyFilter">
-                    <option value="all">All Difficulties</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
-                <select id="statusFilter">
-                    <option value="all">All Status</option>
-                    <option value="solved">Solved</option>
-                    <option value="attempted">Attempted</option>
-                    <option value="todo">To Do</option>
-                </select>
-                <select id="topicFilter">
-                    <option value="all">All Topics</option>
-                </select>
-                <select id="sortSelect">
-                    <option value="id_asc">Problem # (Ascending)</option>
-                    <option value="difficulty_asc">Difficulty (Easy first)</option>
-                    <option value="difficulty_desc">Difficulty (Hard first)</option>
-                    <option value="acceptance_desc">Acceptance (Highest)</option>
-                    <option value="title_asc">Title (A-Z)</option>
-                </select>
-            </div>
+      </div>
+      <div class="stats-card medium">
+        <div class="ring">
+          <svg width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="#333" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#ffc01e" stroke-width="4" stroke-dasharray="126" stroke-dashoffset="126" stroke-linecap="round"/></svg>
+          <div class="ring-text" style="color:#ffc01e" id="mediumPct">0%</div>
         </div>
-
-        <div class="stats-cards">
-            <div class="stat-card easy">
-                <div class="stat-number" id="easyCount">0</div>
-                <div class="stat-label">Easy</div>
-                <div class="stat-solved" id="easySolved">0 Solved</div>
-            </div>
-            <div class="stat-card medium">
-                <div class="stat-number" id="mediumCount">0</div>
-                <div class="stat-label">Medium</div>
-                <div class="stat-solved" id="mediumSolved">0 Solved</div>
-            </div>
-            <div class="stat-card hard">
-                <div class="stat-number" id="hardCount">0</div>
-                <div class="stat-label">Hard</div>
-                <div class="stat-solved" id="hardSolved">0 Solved</div>
-            </div>
+        <div class="info">
+          <h3>Medium</h3>
+          <div class="count" id="mediumCount">0</div>
+          <div style="font-size:12px;color:var(--text-secondary)" id="mediumSolved">0 Solved</div>
         </div>
-
-        <div class="problems-table-container">
-            <table class="problems-table">
-                <thead>
-                    <tr>
-                        <th style="width:50px">Status</th>
-                        <th style="width:60px">#</th>
-                        <th>Title</th>
-                        <th>Topics</th>
-                        <th style="width:100px">Acceptance</th>
-                        <th style="width:100px">Difficulty</th>
-                    </tr>
-                </thead>
-                <tbody id="problemsList">
-                </tbody>
-            </table>
-            <div class="loading-state" id="loadingState">
-                <i class="fas fa-spinner fa-spin"></i> Loading problems...
-            </div>
-            <div class="empty-state" id="emptyState" style="display:none">
-                <i class="fas fa-search"></i>
-                <h3>No problems found</h3>
-                <p>Try adjusting your filters</p>
-            </div>
+      </div>
+      <div class="stats-card hard">
+        <div class="ring">
+          <svg width="50" height="50"><circle cx="25" cy="25" r="20" fill="none" stroke="#333" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#ff375f" stroke-width="4" stroke-dasharray="126" stroke-dashoffset="126" stroke-linecap="round"/></svg>
+          <div class="ring-text" style="color:#ff375f" id="hardPct">0%</div>
         </div>
+        <div class="info">
+          <h3>Hard</h3>
+          <div class="count" id="hardCount">0</div>
+          <div style="font-size:12px;color:var(--text-secondary)" id="hardSolved">0 Solved</div>
+        </div>
+      </div>
+    </div>
 
-        <div class="pagination" id="pagination"></div>
-    </main>
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading problems...</p>
+    </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 LeetCode Clone. Practice makes perfect.</p>
-    </footer>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <i class="fas fa-inbox"></i>
+      <h3>No problems found</h3>
+      <p>Try adjusting your filters</p>
+    </div>
 
-    <script src="js/services.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/app.js"></script>
+    <div class="problems-table-container" id="problemsContainer">
+      <table class="problems-table">
+        <thead>
+          <tr>
+            <th style="width:40px"></th>
+            <th style="width:60px">ID</th>
+            <th>Title</th>
+            <th>Tags</th>
+            <th style="width:80px">Accept.</th>
+            <th style="width:90px">Difficulty</th>
+          </tr>
+        </thead>
+        <tbody id="problemsList"></tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <script src="js/services.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
